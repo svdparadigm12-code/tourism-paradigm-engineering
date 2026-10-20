@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tourism Paradigm Engineering (TPE) — Architecting Sovereign Tourism Frameworks</title>
+<meta name="description" content="Tourism Paradigm Engineering (TPE) — A sovereign scientific discipline engineering smart destination ecosystems, global paradigm frameworks, and stewardship architectures." />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/space-grotesk@5.0.0/index.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.0/index.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.0.0/index.css" />
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          navy: { 950: '#050a18', 900: '#0a1128', 800: '#0f172a', 700: '#16223d' },
+          gold: { 400: '#e6c76b', 500: '#d4af37', 600: '#b8941f' },
+          cyan: { 400: '#5ccfe6', 500: '#38bdf8', 600: '#0ea5e9' }
+        },
+        fontFamily: {
+          display: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+          sans: ['Inter', 'system-ui', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'monospace']
+        }
+      }
+    }
+  }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #050a18;
+    color: #f8fafc;
+    overflow-x: hidden;
+  }
+
+  /* Animated grid background */
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(56, 189, 248, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56, 189, 248, 0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 85%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 85%);
+  }
+
+  .grid-bg-gold {
+    background-image:
+      linear-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(212, 175, 55, 0.05) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+
+  /* Glowing text */
+  .text-glow-gold { text-shadow: 0 0 30px rgba(212, 175, 55, 0.35); }
+  .text-glow-cyan { text-shadow: 0 0 30px rgba(56, 189, 248, 0.35); }
+
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, #f8fafc 0%, #d4af37 50%, #38bdf8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Glass card */
+  .glass {
+    background: linear-gradient(145deg, rgba(22, 34, 61, 0.6), rgba(10, 17, 40, 0.4));
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(56, 189, 248, 0.12);
+  }
+  .glass-gold {
+    background: linear-gradient(145deg, rgba(22, 34, 61, 0.55), rgba(10, 17, 40, 0.35));
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(212, 175, 55, 0.18);
+  }
+
+  /* Hover lift */
+  .lift { transition: transform .4s cubic-bezier(.2,.8,.2,1), border-color .4s, box-shadow .4s; }
+  .lift:hover { transform: translateY(-6px); border-color: rgba(212, 175, 55, 0.5); box-shadow: 0 20px 60px -20px rgba(212, 175, 55, 0.25); }
+
+  /* Button shine */
+  .btn-primary {
+    background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
+    color: #050a18;
+    position: relative;
+    overflow: hidden;
+    transition: all .3s;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+    transition: left .6s;
+  }
+  .btn-primary:hover::before { left: 100%; }
+  .btn-primary:hover { box-shadow: 0 0 40px rgba(212, 175, 55, 0.4); }
+
+  .btn-ghost {
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    color: #5ccfe6;
+    transition: all .3s;
+  }
+  .btn-ghost:hover {
+    background: rgba(56, 189, 248, 0.08);
+    border-color: #38bdf8;
+    box-shadow: 0 0 30px rgba(56, 189, 248, 0.2);
+  }
+
+  /* Animated border */
+  .border-gradient {
+    position: relative;
+  }
+  .border-gradient::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(212,175,55,0.6), rgba(56,189,248,0.2), rgba(212,175,55,0.6));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Pulse dot */
+  .pulse-dot {
+    position: relative;
+  }
+  .pulse-dot::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: #d4af37;
+    opacity: 0.4;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 0.4; }
+    100% { transform: scale(2.5); opacity: 0; }
+  }
+
+  /* Reveal animation */
+  .reveal { opacity: 0; transform: translateY(30px); transition: all .8s cubic-bezier(.2,.8,.2,1); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* Floating orbs */
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.35;
+    pointer-events: none;
+    animation: float 20s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0); }
+    33% { transform: translate(40px, -30px); }
+    66% { transform: translate(-30px, 40px); }
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: #050a18; }
+  ::-webkit-scrollbar-thumb { background: linear-gradient(#d4af37, #38bdf8); border-radius: 4px; }
+
+  /* Nav blur */
+  .nav-blur {
+    background: rgba(5, 10, 24, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  /* Tag chip */
+  .chip {
+    background: rgba(56, 189, 248, 0.08);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    color: #5ccfe6;
+  }
+
+  /* Divider */
+  .divider-gold {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #d4af37, transparent);
+  }
+
+  /* Hero badge shimmer */
+  .shimmer {
+    background: linear-gradient(90deg, rgba(212,175,55,0.1), rgba(212,175,55,0.3), rgba(212,175,55,0.1));
+    background-size: 200% 100%;
+    animation: shimmer 3s infinite;
+  }
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  /* Mobile menu */
+  .mobile-menu {
+    transform: translateX(100%);
+    transition: transform .4s cubic-bezier(.2,.8,.2,1);
+  }
+  .mobile-menu.open { transform: translateX(0); }
+</style>
+</head>
+<body class="antialiased selection:bg-gold-500/30 selection:text-white">
+
+<!-- ============ NAVIGATION ============ -->
+<nav class="fixed top-0 left-0 right-0 z-50 nav-blur border-b border-white/5">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-3 group">
+      <div class="relative w-9 h-9 flex items-center justify-center">
+        <div class="absolute inset-0 rounded-md bg-gradient-to-br from-gold-500 to-cyan-500 opacity-80 group-hover:opacity-100 transition"></div>
+        <span class="relative font-display font-bold text-navy-900 text-sm">TPE</span>
+      </div>
+      <div class="hidden sm:block">
+        <div class="font-display font-semibold text-sm tracking-wide text-white">Tourism Paradigm Engineering</div>
+        <div class="text-[10px] text-gold-400 font-mono tracking-widest">SOVEREIGN RESEARCH LAB</div>
+      </div>
+    </a>
+
+    <div class="hidden lg:flex items-center gap-8 text-sm">
+      <a href="#mission" class="text-slate-300 hover:text-gold-400 transition">Mission</a>
+      <a href="#pillars" class="text-slate-300 hover:text-gold-400 transition">Pillars</a>
+      <a href="#research" class="text-slate-300 hover:text-gold-400 transition">Research</a>
+      <a href="#author" class="text-slate-300 hover:text-gold-400 transition">Author</a>
+      <a href="#research" class="btn-ghost px-5 py-2 rounded-md text-xs font-semibold tracking-wider">EXPLORE REPOSITORY →</a>
+    </div>
+
+    <button id="menuBtn" class="lg:hidden w-10 h-10 flex items-center justify-center border border-white/10 rounded-md" aria-label="Menu">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div id="mobileMenu" class="mobile-menu fixed inset-y-0 right-0 z-40 w-72 bg-navy-900/95 backdrop-blur-xl border-l border-white/10 pt-20 px-8 lg:hidden">
+  <div class="flex flex-col gap-6 text-lg">
+    <a href="#mission" class="nav-link text-slate-200 hover:text-gold-400">Mission</a>
+    <a href="#pillars" class="nav-link text-slate-200 hover:text-gold-400">Pillars</a>
+    <a href="#research" class="nav-link text-slate-200 hover:text-gold-400">Research</a>
+    <a href="#author" class="nav-link text-slate-200 hover:text-gold-400">Author</a>
+    <a href="#research" class="btn-primary px-5 py-3 rounded-md text-sm font-bold tracking-wider text-center mt-4">EXPLORE REPOSITORY</a>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<section id="top" class="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden">
+  <!-- Background layers -->
+  <div class="absolute inset-0 grid-bg"></div>
+  <div class="absolute inset-0 grid-bg-gold opacity-40"></div>
+  <div class="orb w-[500px] h-[500px] bg-cyan-500 top-10 -left-40"></div>
+  <div class="orb w-[600px] h-[600px] bg-gold-500 bottom-0 -right-40" style="animation-delay: -7s;"></div>
+  <div class="orb w-[300px] h-[300px] bg-cyan-400 top-1/2 left-1/2" style="animation-delay: -13s;"></div>
+
+  <div class="relative max-w-7xl mx-auto px-6 lg:px-10 w-full">
+    <!-- Top badge -->
+    <div class="flex justify-center mb-8 reveal">
+      <div class="shimmer inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gold-500/30 bg-gold-500/5">
+        <span class="pulse-dot w-2 h-2 rounded-full bg-gold-500"></span>
+        <span class="text-xs font-mono tracking-[0.2em] text-gold-400">EST. 2025 · KISH ISLAND · IRAN</span>
+      </div>
+    </div>
+
+    <!-- Title -->
+    <div class="text-center reveal">
+      <h1 class="font-display font-bold tracking-tight leading-[0.95]">
+        <span class="block text-4xl sm:text-6xl lg:text-8xl gradient-text">Tourism Paradigm</span>
+        <span class="block text-4xl sm:text-6xl lg:text-8xl text-white mt-2">Engineering <span class="text-gold-500 text-glow-gold">(TPE)</span></span>
+      </h1>
+    </div>
+
+    <!-- Subtitle -->
+    <div class="text-center mt-8 max-w-3xl mx-auto reveal">
+      <p class="text-lg sm:text-xl lg:text-2xl text-slate-300 font-light leading-relaxed">
+        Architecting <span class="text-cyan-400 font-medium">Sovereign Tourism Frameworks</span> &
+        <span class="text-gold-400 font-medium">Smart Destination Ecosystems</span>
+      </p>
+      <div class="divider-gold w-32 mx-auto mt-8"></div>
+    </div>
+
+    <!-- CTAs -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center mt-12 reveal">
+      <a href="#pillars" class="btn-primary px-8 py-4 rounded-md font-bold text-sm tracking-widest inline-flex items-center justify-center gap-2">
+        EXPLORE THE DISCIPLINE
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+      <a href="#research" class="btn-ghost px-8 py-4 rounded-md font-bold text-sm tracking-widest inline-flex items-center justify-center gap-2">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.4.6.1.82-.26.82-.58v-2.17c-3.34.73-4.04-1.42-4.04-1.42-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5 1 .1-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.11-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 016 0c2.3-1.55 3.3-1.23 3.3-1.23.65 1.66.24 2.88.11 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.69.82.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GITHUB REPOSITORY
+      </a>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20 max-w-5xl mx-auto reveal">
+      <div class="text-center">
+        <div class="font-display text-3xl lg:text-4xl font-bold text-gold-500">3</div>
+        <div class="text-xs text-slate-400 tracking-widest mt-1 font-mono">CORE PILLARS</div>
+      </div>
+      <div class="text-center border-x border-white/10">
+        <div class="font-display text-3xl lg:text-4xl font-bold text-cyan-400">∞</div>
+        <div class="text-xs text-slate-400 tracking-widest mt-1 font-mono">FRAMEWORKS</div>
+      </div>
+      <div class="text-center">
+        <div class="font-display text-3xl lg:text-4xl font-bold text-gold-500">1</div>
+        <div class="text-xs text-slate-400 tracking-widest mt-1 font-mono">SOVEREIGN LAB</div>
+      </div>
+      <div class="text-center border-x border-white/10">
+        <div class="font-display text-3xl lg:text-4xl font-bold text-cyan-400">ORCID</div>
+        <div class="text-xs text-slate-400 tracking-widest mt-1 font-mono">VERIFIED</div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-500 reveal">
+      <span class="text-[10px] font-mono tracking-widest">SCROLL</span>
+      <div class="w-px h-10 bg-gradient-to-b from-gold-500 to-transparent"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MISSION / OVERVIEW ============ -->
+<section id="mission" class="relative py-24 lg:py-32">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <!-- Section label -->
+    <div class="flex items-center gap-4 mb-12 reveal">
+      <div class="w-12 h-px bg-gold-500"></div>
+      <span class="text-xs font-mono tracking-[0.3em] text-gold-400">01 — THE PARADIGM SHIFT</span>
+    </div>
+
+    <div class="grid lg:grid-cols-12 gap-12 items-start">
+      <div class="lg:col-span-5 reveal">
+        <h2 class="font-display text-4xl lg:text-5xl font-bold leading-tight">
+          From <span class="text-slate-500 line-through decoration-gold-500/60">Management</span><br/>
+          to <span class="gradient-text">Engineering</span>.
+        </h2>
+        <div class="mt-6 glass-gold rounded-lg p-6">
+          <div class="text-xs font-mono tracking-widest text-gold-400 mb-2">DEFINITION</div>
+          <p class="text-slate-200 leading-relaxed">
+            <span class="text-white font-semibold">Tourism Paradigm Engineering (TPE)</span> is a sovereign scientific and engineering discipline that elevates tourism from a managed service industry into a <span class="text-gold-400">designed, governed, and continuously architected ecosystem</span> — comparable to urban planning, aerospace systems, or national infrastructure.
+          </p>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7 space-y-6 reveal">
+        <p class="text-lg text-slate-300 leading-relaxed">
+          For decades, tourism has been treated as a collection of hospitality operations, marketing campaigns, and policy documents. TPE rejects this fragmentation. It asserts that destinations are <span class="text-cyan-400 font-medium">complex adaptive systems</span> that demand the same engineering rigor applied to power grids, financial architectures, and sovereign digital platforms.
+        </p>
+        <p class="text-slate-400 leading-relaxed">
+          Under TPE, a destination is not "managed" — it is <em class="text-gold-400 not-italic font-medium">engineered</em>. Every stakeholder flow, every cultural asset, every data signal, every regulatory boundary is treated as a first-class component in a coherent, auditable, sovereign architecture.
+        </p>
+
+        <div class="grid sm:grid-cols-3 gap-4 pt-4">
+          <div class="glass rounded-lg p-5 lift">
+            <div class="text-3xl font-display font-bold text-gold-500">01</div>
+            <div class="text-sm text-white font-semibold mt-2">Architect, Don't Administer</div>
+            <p class="text-xs text-slate-400 mt-2">Replace reactive policy with structural design.</p>
+          </div>
+          <div class="glass rounded-lg p-5 lift">
+            <div class="text-3xl font-display font-bold text-cyan-400">02</div>
+            <div class="text-sm text-white font-semibold mt-2">Sovereign by Default</div>
+            <p class="text-xs text-slate-400 mt-2">Every framework is owned, governed, and versioned.</p>
+          </div>
+          <div class="glass rounded-lg p-5 lift">
+            <div class="text-3xl font-display font-bold text-gold-500">03</div>
+            <div class="text-sm text-white font-semibold mt-2">Engineering-Grade</div>
+            <p class="text-xs text-slate-400 mt-2">Rigorous, reproducible, peer-reviewable science.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CORE PILLARS ============ -->
+<section id="pillars" class="relative py-24 lg:py-32 bg-gradient-to-b from-transparent via-navy-900/40 to-transparent">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="flex items-center gap-4 mb-6 reveal">
+      <div class="w-12 h-px bg-cyan-500"></div>
+      <span class="text-xs font-mono tracking-[0.3em] text-cyan-400">02 — CORE PILLARS</span>
+    </div>
+    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16 reveal">
+      <h2 class="font-display text-4xl lg:text-5xl font-bold leading-tight max-w-2xl">
+        Three pillars. <span class="text-gold-500">One sovereign discipline.</span>
+      </h2>
+      <p class="text-slate-400 max-w-md">
+        Each pillar is a self-contained engineering domain — interoperable, version-controlled, and deployable across any destination ecosystem on Earth.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <!-- Pillar 1 -->
+      <article class="glass-gold border-gradient rounded-xl p-8 lift reveal relative overflow-hidden group">
+        <div class="absolute -top-10 -right-10 w-40 h-40 bg-gold-500/10 rounded-full blur-3xl group-hover:bg-gold-500/20 transition"></div>
+        <div class="relative">
+          <div class="flex items-center justify-between mb-6">
+            <div class="w-14 h-14 rounded-lg bg-gradient-to-br from-gold-500/20 to-gold-500/5 border border-gold-500/30 flex items-center justify-center">
+              <svg class="w-7 h-7 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            </div>
+            <span class="text-xs font-mono text-gold-400 tracking-widest">PILLAR / 01</span>
+          </div>
+          <h3 class="font-display text-2xl font-bold text-white mb-3">Sovereign Command Center & Stewardship</h3>
+          <p class="text-slate-300 text-sm leading-relaxed mb-6">
+            A centralized governance architecture where destination authorities exercise real-time stewardship over tourism flows, cultural assets, regulatory boundaries, and strategic outcomes — with full auditability and sovereign control.
+          </p>
+          <ul class="space-y-2 text-xs text-slate-400">
+            <li class="flex items-start gap-2"><span class="text-gold-400 mt-0.5">◆</span> Real-time destination telemetry</li>
+            <li class="flex items-start gap-2"><span class="text-gold-400 mt-0.5">◆</span> Governance & policy orchestration</li>
+            <li class="flex items-start gap-2"><span class="text-gold-400 mt-0.5">◆</span> Stewardship-grade accountability</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Pillar 2 -->
+      <article class="glass rounded-xl p-8 lift reveal relative overflow-hidden group">
+        <div class="absolute -top-10 -right-10 w-40 h-40 bg-cyan-500/10 rounded-full blur-3xl group-hover:bg-cyan-500/20 transition"></div>
+        <div class="relative">
+          <div class="flex items-center justify-between mb-6">
+            <div class="w-14 h-14 rounded-lg bg-gradient-to-br from-cyan-500/20 to-cyan-500/5 border border-cyan-500/30 flex items-center justify-center">
+              <svg class="w-7 h-7 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+            </div>
+            <span class="text-xs font-mono text-cyan-400 tracking-widest">PILLAR / 02</span>
+          </div>
+          <h3 class="font-display text-2xl font-bold text-white mb-3">Advanced Destination Architecture</h3>
+          <p class="text-slate-300 text-sm leading-relaxed mb-6">
+            The systematic design of destinations as engineered ecosystems — where infrastructure, experience layers, cultural narratives, and visitor journeys are composed as interoperable, scalable, and measurable components.
+          </p>
+          <ul class="space-y-2 text-xs text-slate-400">
+            <li class="flex items-start gap-2"><span class="text-cyan-400 mt-0.5">◆</span> Experience-layer composition</li>
+            <li class="flex items-start gap-2"><span class="text-cyan-400 mt-0.5">◆</span> Smart destination infrastructure</li>
+            <li class="flex items-start gap-2"><span class="text-cyan-400 mt-0.5">◆</span> Cultural & narrative engineering</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Pillar 3 -->
+      <article class="glass-gold border-gradient rounded-xl p-8 lift reveal relative overflow-hidden group">
+        <div class="absolute -top-10 -right-10 w-40 h-40 bg-gold-500/10 rounded-full blur-3xl group-hover:bg-gold-500/20 transition"></div>
+        <div class="relative">
+          <div class="flex items-center justify-between mb-6">
+            <div class="w-14 h-14 rounded-lg bg-gradient-to-br from-gold-500/20 to-cyan-500/5 border border-gold-500/30 flex items-center justify-center">
+              <svg class="w-7 h-7 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <span class="text-xs font-mono text-gold-400 tracking-widest">PILLAR / 03</span>
+          </div>
+          <h3 class="font-display text-2xl font-bold text-white mb-3">Global Paradigm Frameworks</h3>
+          <p class="text-slate-300 text-sm leading-relaxed mb-6">
+            A library of internationally-deployable reference frameworks — including the flagship <span class="text-gold-400 font-semibold">Falcon Tourism System</span> — codifying how nations, regions, and cities can adopt TPE as a sovereign operating model.
+          </p>
+          <ul class="space-y-2 text-xs text-slate-400">
+            <li class="flex items-start gap-2"><span class="text-gold-400 mt-0.5">◆</span> Falcon Tourism System (FTS)</li>
+            <li class="flex items-start gap-2"><span class="text-gold-400 mt-0.5">◆</span> Cross-national reference architectures</li>
+            <li class="flex items-start gap-2"><span class="text-gold-400 mt-0.5">◆</span> Open academic standards</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REPOSITORY & RESEARCH ============ -->
+<section id="research" class="relative py-24 lg:py-32">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="flex items-center gap-4 mb-6 reveal">
+      <div class="w-12 h-px bg-gold-500"></div>
+      <span class="text-xs font-mono tracking-[0.3em] text-gold-400">03 — REPOSITORY & RESEARCH</span>
+    </div>
+    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12 reveal">
+      <h2 class="font-display text-4xl lg:text-5xl font-bold leading-tight max-w-3xl">
+        A living repository of <span class="text-cyan-400">frameworks</span>, <span class="text-gold-500">ecosystems</span>, and <span class="text-white">documentation</span>.
+      </h2>
+      <div class="flex items-center gap-3">
+        <span class="pulse-dot relative w-2 h-2 rounded-full bg-cyan-400"></span>
+        <span class="text-xs font-mono text-cyan-400 tracking-widest">LIVE · OPEN ACCESS</span>
+      </div>
+    </div>
+
+    <!-- Filter chips -->
+    <div class="flex flex-wrap gap-2 mb-10 reveal" id="filterBar">
+      <button data-filter="all" class="filter-chip px-4 py-2 rounded-full text-xs font-mono tracking-wider border border-gold-500/50 bg-gold-500/10 text-gold-400">ALL</button>
+      <button data-filter="framework" class="filter-chip px-4 py-2 rounded-full text-xs font-mono tracking-wider border border-white/10 text-slate-400 hover:border-cyan-500/50 hover:text-cyan-400 transition">FRAMEWORKS</button>
+      <button data-filter="ecosystem" class="filter-chip px-4 py-2 rounded-full text-xs font-mono tracking-wider border border-white/10 text-slate-400 hover:border-cyan-500/50 hover:text-cyan-400 transition">ECOSYSTEMS</button>
+      <button data-filter="docs" class="filter-chip px-4 py-2 rounded-full text-xs font-mono tracking-wider border border-white/10 text-slate-400 hover:border-cyan-500/50 hover:text-cyan-400 transition">DOCUMENTATION</button>
+    </div>
+
+    <!-- Cards grid -->
+    <div id="repoGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Card 1: Falcon -->
+      <article data-cat="framework" class="repo-card glass-gold border-gradient rounded-xl p-6 lift reveal group cursor-pointer">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-gold-500 to-gold-600 flex items-center justify-center">
+            <svg class="w-6 h-6 text-navy-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <span class="chip px-2 py-1 rounded text-[10px] font-mono tracking-wider">FRAMEWORK</span>
+        </div>
+        <h3 class="font-display text-xl font-bold text-white mb-2 group-hover:text-gold-400 transition">Falcon Tourism System</h3>
+        <p class="text-sm text-slate-400 leading-relaxed mb-4">The flagship sovereign tourism operating framework — a complete architectural blueprint for national and regional destination governance.</p>
+        <div class="flex items-center justify-between pt-4 border-t border-white/5">
+          <div class="flex gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-gold-500"></span>
+            <span class="w-2 h-2 rounded-full bg-cyan-500"></span>
+            <span class="w-2 h-2 rounded-full bg-white/30"></span>
+          </div>
+          <span class="text-xs font-mono text-gold-400 tracking-wider">v1.0 →</span>
+        </div>
+      </article>
+
+      <!-- Card 2: Smart Destinations -->
+      <article data-cat="ecosystem" class="repo-card glass rounded-xl p-6 lift reveal group cursor-pointer">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-cyan-500 to-cyan-600 flex items-center justify-center">
+            <svg class="w-6 h-6 text-navy-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
+          </div>
+          <span class="chip px-2 py-1 rounded text-[10px] font-mono tracking-wider">ECOSYSTEM</span>
+        </div>
+        <h3 class="font-display text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition">Smart Destination Ecosystems</h3>
+        <p class="text-sm text-slate-400 leading-relaxed mb-4">Composable, sensor-aware destination architectures integrating visitor flows, cultural assets, and infrastructure as first-class engineering components.</p>
+        <div class="flex items-center justify-between pt-4 border-t border-white/5">
+          <div class="flex gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-cyan-500"></span>
+            <span class="w-2 h-2 rounded-full bg-white/30"></span>
+            <span class="w-2 h-2 rounded-full bg-white/30"></span>
+          </div>
+          <span class="text-xs font-mono text-cyan-400 tracking-wider">ACTIVE →</span>
+        </div>
+      </article>
+
+      <!-- Card 3: Command Center -->
+      <article data-cat="framework" class="repo-card glass-gold border-gradient rounded-xl p-6 lift reveal group cursor-pointer">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-gold-500 to-gold-600 flex items-center justify-center">
+            <svg class="w-6 h-6 text-navy-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <span class="chip px-2 py-1 rounded text-[10px] font-mono tracking-wider">FRAMEWORK</span>
+        </div>
+        <h3 class="font-display text-xl font-bold text-white mb-2 group-hover:text-gold-400 transition">Sovereign Command Center</h3>
+        <p class="text-sm text-slate-400 leading-relaxed mb-4">The governance nucleus of TPE — a reference architecture for destination authorities to exercise stewardship with full sovereignty and accountability.</p>
+        <div class="flex items-center justify-between pt-4 border-t border-white/5">
+          <div class="flex gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-gold-500"></span>
+            <span class="w-2 h-2 rounded-full bg-gold-500"></span>
+            <span class="w-2 h-2 rounded-full bg-white/30"></span>
+          </div>
+          <span class="text-xs font-mono text-gold-400 tracking-wider">v1.0 →</span>
+        </div>
+      </article>
+
+      <!-- Card 4: Paradigm Docs -->
+      <article data-cat="docs" class="repo-card glass rounded-xl p-6 lift reveal group cursor-pointer">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-white/10 to-white/5 border border-white/20 flex items-center justify-center">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          </div>
+          <span class="chip px-2 py-1 rounded text-[10px] font-mono tracking-wider">DOCS</span>
+        </div>
+        <h3 class="font-display text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition">TPE Paradigm Manifesto</h3>
+        <p class="text-sm text-slate-400 leading-relaxed mb-4">The founding academic document defining TPE as a discipline — its ontology, axioms, and the case for engineering-grade tourism stewardship.</p>
+        <div class="flex items-center justify-between pt-4 border-t border-white/5">
+          <div class="flex gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-white/50"></span>
+            <span class="w-2 h-2 rounded-full bg-white/30"></span>
+            <span class="w-2 h-2 rounded-full bg-white/30"></span>
+          </div>
+          <span class="text-xs font-mono text-slate-400 tracking-wider">PDF →</span>
+        </div>
+      </article>
+
+      <!-- Card 5: Stewardship -->
+      <article data-cat="ecosystem" class="repo-card glass rounded-xl p-6 lift reveal group cursor-pointer">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-cyan-500 to-cyan-600 flex items-center justify-center">
+            <svg class="w-6 h-6 text-navy-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+          </div>
+          <span class="chip px-2 py-1 rounded text-[10px] font-mono tracking-wider">ECOSYSTEM</span>
+        </div>
+        <h3 class="font-display text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition">Stakeholder Stewardship Model</h3>
+        <p class="text-sm text-slate-400 leading-relaxed mb-4">A multi-agent stewardship framework mapping authorities, communities, operators, and visitors into a coherent, accountable governance graph.</p>
+        <div class="flex items-center justify-between pt-4 border-t border-white/5">
+          <div class="flex gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-cyan-500"></span>
+            <span class="w-2 h-2 rounded-full bg-cyan-500"></span>
+            <span class="w-2 h-2 rounded-full bg-white/30"></span>
+          </div>
+          <span class="text-xs font-mono text-cyan-400 tracking-wider">ACTIVE →</span>
+        </div>
+      </article>
+
+      <!-- Card 6: Academic Library -->
+      <article data-cat="docs" class="repo-card glass rounded-xl p-6 lift reveal group cursor-pointer">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-white/10 to-white/5 border border-white/20 flex items-center justify-center">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          </div>
+          <span class="chip px-2 py-1 rounded text-[10px] font-mono tracking-wider">DOCS</span>
+        </div>
+        <h3 class="font-display text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition">Academic Reference Library</h3>
+        <p class="text-sm text-slate-400 leading-relaxed mb-4">Curated bibliography, ontological glossary, and peer-reviewable citations anchoring TPE within the global academic discourse.</p>
+        <div class="flex items-center justify-between pt-4 border-t border-white/5">
+          <div class="flex gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-white/50"></span>
+            <span class="w-2 h-2 rounded-full bg-white/50"></span>
+            <span class="w-2 h-2 rounded-full bg-white/30"></span>
+          </div>
+          <span class="text-xs font-mono text-slate-400 tracking-wider">INDEX →</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AUTHOR ============ -->
+<section id="author" class="relative py-24 lg:py-32 bg-gradient-to-b from-transparent via-navy-900/40 to-transparent">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="flex items-center gap-4 mb-6 reveal">
+      <div class="w-12 h-px bg-gold-500"></div>
+      <span class="text-xs font-mono tracking-[0.3em] text-gold-400">04 — PRINCIPAL AUTHOR</span>
+    </div>
+
+    <div class="glass-gold border-gradient rounded-2xl p-8 lg:p-12 reveal">
+      <div class="grid lg:grid-cols-12 gap-10 items-center">
+        <!-- Avatar / Visual -->
+        <div class="lg:col-span-4 flex justify-center">
+          <div class="relative">
+            <div class="absolute inset-0 bg-gradient-to-br from-gold-500 to-cyan-500 rounded-full blur-2xl opacity-30"></div>
+            <div class="relative w-56 h-56 lg:w-64 lg:h-64 rounded-full bg-gradient-to-br from-navy-700 to-navy-900 border-2 border-gold-500/40 flex items-center justify-center overflow-hidden">
+              <div class="text-center">
+                <div class="font-display text-6xl lg:text-7xl font-bold gradient-text">S</div>
+                <div class="text-[10px] font-mono tracking-[0.3em] text-gold-400 mt-2">PRINCIPAL</div>
+              </div>
+            </div>
+            <div class="absolute -bottom-2 -right-2 w-16 h-16 rounded-full bg-navy-900 border-2 border-gold-500 flex items-center justify-center">
+              <svg class="w-7 h-7 text-gold-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0L9.5 7.5H1.5l6.5 5-2.5 8 6.5-5 6.5 5-2.5-8 6.5-5h-8z"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Info -->
+        <div class="lg:col-span-8">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 mb-4">
+            <span class="w-1.5 h-1.5 rounded-full bg-gold-500"></span>
+            <span class="text-[10px] font-mono tracking-widest text-gold-400">FOUNDER · PRINCIPAL ARCHITECT</span>
+          </div>
+          <h3 class="font-display text-4xl lg:text-5xl font-bold text-white mb-2">Sadegh</h3>
+          <p class="text-lg text-gold-400 font-display mb-6">Tourism Paradigm Engineering Lab</p>
+
+          <div class="grid sm:grid-cols-2 gap-4 mb-6">
+            <div class="glass rounded-lg p-4">
+              <div class="text-[10px] font-mono tracking-widest text-slate-500 mb-1">LOCATION</div>
+              <div class="text-sm text-white flex items-center gap-2">
+                <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                Kish Island, Iran
+              </div>
+            </div>
+            <div class="glass rounded-lg p-4">
+              <div class="text-[10px] font-mono tracking-widest text-slate-500 mb-1">DISCIPLINE</div>
+              <div class="text-sm text-white flex items-center gap-2">
+                <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                Tourism Paradigm Engineering
+              </div>
+            </div>
+          </div>
+
+          <!-- ORCID -->
+          <a href="https://orcid.org/0009-0000-9130-7750" target="_blank" rel="noopener" class="inline-flex items-center gap-3 glass rounded-lg px-5 py-3 lift group">
+            <div class="w-10 h-10 rounded-md bg-[#a6ce39] flex items-center justify-center font-bold text-white text-sm">iD</div>
+            <div>
+              <div class="text-[10px] font-mono tracking-widest text-slate-500">ORCID IDENTIFIER</div>
+              <div class="text-sm text-white font-mono group-hover:text-gold-400 transition">0009-0000-9130-7750</div>
+            </div>
+            <svg class="w-4 h-4 text-slate-500 group-hover:text-gold-400 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="relative border-t border-white/5 py-12">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="grid md:grid-cols-3 gap-8 mb-10">
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <div class="relative w-9 h-9 flex items-center justify-center">
+            <div class="absolute inset-0 rounded-md bg-gradient-to-br from-gold-500 to-cyan-500"></div>
+            <span class="relative font-display font-bold text-navy-900 text-sm">TPE</span>
+          </div>
+          <div>
+            <div class="font-display font-semibold text-sm text-white">Tourism Paradigm Engineering</div>
+            <div class="text-[10px] text-gold-400 font-mono tracking-widest">SOVEREIGN RESEARCH LAB</div>
+          </div>
+        </div>
+        <p class="text-sm text-slate-400 leading-relaxed max-w-sm">
+          Architecting sovereign tourism frameworks and smart destination ecosystems for a new era of engineering-grade stewardship.
+        </p>
+      </div>
+
+      <div>
+        <div class="text-[10px] font-mono tracking-widest text-gold-400 mb-4">NAVIGATE</div>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#mission" class="text-slate-400 hover:text-gold-400 transition">Mission</a></li>
+          <li><a href="#pillars" class="text-slate-400 hover:text-gold-400 transition">Core Pillars</a></li>
+          <li><a href="#research" class="text-slate-400 hover:text-gold-400 transition">Research Repository</a></li>
+          <li><a href="#author" class="text-slate-400 hover:text-gold-400 transition">Principal Author</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="text-[10px] font-mono tracking-widest text-gold-400 mb-4">REPOSITORY</div>
+        <a href="https://github.com/" target="_blank" rel="noopener" class="inline-flex items-center gap-3 glass rounded-lg px-5 py-3 lift group">
+          <svg class="w-5 h-5 text-white group-hover:text-gold-400 transition" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.4.6.1.82-.26.82-.58v-2.17c-3.34.73-4.04-1.42-4.04-1.42-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5 1 .1-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.11-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 016 0c2.3-1.55 3.3-1.23 3.3-1.23.65 1.66.24 2.88.11 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.69.82.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          <div>
+            <div class="text-[10px] font-mono tracking-widest text-slate-500">GITHUB</div>
+            <div class="text-sm text-white group-hover:text-gold-400 transition font-mono">View Repository →</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="divider-gold mb-6"></div>
+
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
+      <div class="text-slate-500 font-mono tracking-wider">
+        © <span id="year"></span> TOURISM PARADIGM ENGINEERING · SADDEGH · ALL RIGHTS RESERVED
+      </div>
+      <div class="flex items-center gap-6 text-slate-500 font-mono tracking-wider">
+        <span>KISH ISLAND · IRAN</span>
+        <span class="flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+          SYSTEM OPERATIONAL
+        </span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Mobile menu
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  document.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Filter chips
+  const chips = document.querySelectorAll('#filterBar .filter-chip');
+  const cards = document.querySelectorAll('.repo-card');
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      chips.forEach(c => {
+        c.classList.remove('border-gold-500/50', 'bg-gold-500/10', 'text-gold-400');
+        c.classList.add('border-white/10', 'text-slate-400');
+      });
+      chip.classList.add('border-gold-500/50', 'bg-gold-500/10', 'text-gold-400');
+      chip.classList.remove('border-white/10', 'text-slate-400');
+
+      const f = chip.dataset.filter;
+      cards.forEach(card => {
+        const match = f === 'all' || card.dataset.cat === f;
+        card.style.display = match ? '' : 'none';
+      });
+    });
+  });
+
+  // Repo card click → could link to GitHub; for now, subtle pulse
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      card.animate([
+        { transform: 'scale(1)' },
+        { transform: 'scale(0.98)' },
+        { transform: 'scale(1)' }
+      ], { duration: 300, easing: 'ease-out' });
+    });
+  });
+</script>
+
+</body>
+</html>
